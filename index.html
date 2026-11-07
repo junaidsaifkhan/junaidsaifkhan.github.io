@@ -137,6 +137,7 @@ img, svg { max-width: 100%; }
 .portrait .frame { aspect-ratio: 1 / 1; border-radius: 10px; background: var(--accent-soft); display: grid; place-items: center; position: relative; overflow: hidden; }
 .portrait .frame svg { width: 46%; height: auto; }
 .portrait .frame .initials { position: absolute; bottom: 0.7rem; left: 0.85rem; font-family: var(--font-display); font-weight: 600; font-size: 0.85rem; letter-spacing: 0.08em; color: var(--muted); }
+.portrait .photo { display: block; width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 10px; background: var(--accent-soft); }
 .addr { display: grid; gap: 0.85rem; font-size: 0.86rem; line-height: 1.45; color: var(--muted); padding: 0 0.15rem 0.2rem; }
 .addr strong { display: block; font-family: var(--font-display); font-size: 0.74rem; letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink); font-weight: 600; margin-bottom: 0.15rem; }
 
@@ -255,6 +256,7 @@ mjx-container[display="true"] { overflow-x: auto; overflow-y: hidden; max-width:
   body { font-size: 16.5px; }
   .portrait { grid-template-columns: 1fr; }
   .portrait .frame { max-width: 10rem; }
+  .portrait .photo { max-width: 12rem; }
   .facts, .skills { grid-template-columns: 1fr; gap: 0.1rem; }
   .facts dd { padding-top: 0.1rem; padding-bottom: 0.4rem; }
   .skills dd { margin-bottom: 0.6rem; }
@@ -326,17 +328,7 @@ mjx-container[display="true"] { overflow-x: auto; overflow-y: hidden; max-width:
     </div>
 
     <aside class="card portrait" aria-label="Affiliations">
-      <!-- To use a photo on GitHub Pages, replace this .frame div with:
-           <img src="assets/img/prof_pic.jpg" alt="Junaid Saif Khan" style="border-radius:10px;width:100%;aspect-ratio:1/1;object-fit:cover"> -->
-      <div class="frame">
-        <svg class="mark" viewBox="0 0 24 24" role="img" aria-label="Three quarks in a color singlet">
-          <path class="bond" d="M12 4.6 L4.9 17.4 L19.1 17.4 Z"/>
-          <circle class="r" cx="12" cy="4.6" r="3.6"/>
-          <circle class="g" cx="4.9" cy="17.4" r="3.6"/>
-          <circle class="b" cx="19.1" cy="17.4" r="3.6"/>
-        </svg>
-        <span class="initials">J S K</span>
-      </div>
+      <img class="photo" src="assets/img/prof_pic.webp" alt="Junaid Saif Khan" width="480" height="480">
       <div class="addr">
         <div><strong>In residence, Nov 2026 to Apr 2027</strong>Department of Physics, University of Cincinnati<br>Geology-Physics Building, Room 433<br>Cincinnati, OH 45221</div>
         <div><strong>Home institution</strong>Department of Physics, Southern Methodist University<br>Dallas, TX 75275</div>
