@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Junaid Saif Khan</title>
+<meta name="description" content="Junaid Saif Khan, Ph.D. candidate in physics at Southern Methodist University and NSF MCgen Fellow at the University of Cincinnati. Machine learning for QCD: small-x evolution and hadronization.">
+<meta property="og:title" content="Junaid Saif Khan">
+<meta property="og:description" content="Machine learning for QCD: neural surrogates for small-x BK evolution and flavor reweighting for string hadronization in PYTHIA.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='8' r='6' fill='%23cf4436'/%3E%3Ccircle cx='8' cy='23' r='6' fill='%232c9659'/%3E%3Ccircle cx='24' cy='23' r='6' fill='%233868d0'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Layout: sticky top nav, a narrow left rail of section labels, one reading column. */
+  --paper: #f6f7f9;
+  --surface: #ffffff;
+  --ink: #161a21;
+  --muted: #586172;
+  --rule: #dde2e8;
+  --accent: #0f5f68;
+  --accent-ink: #ffffff;
+  --accent-soft: #e2eff0;
+  --q-red: #cf4436;
+  --q-green: #2c9659;
+  --q-blue: #3868d0;
+  --font-display: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Source Serif 4", "Iowan Old Style", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --radius: 14px;
+  --bar-h: 4.25rem;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0e1115;
+    --surface: #151a20;
+    --ink: #e7eaef;
+    --muted: #9ca5b3;
+    --rule: #27303a;
+    --accent: #66c6cd;
+    --accent-ink: #0b1316;
+    --accent-soft: #13282b;
+    --q-red: #e8665a;
+    --q-green: #4fbf7e;
+    --q-blue: #6b93ec;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0e1115;
+  --surface: #151a20;
+  --ink: #e7eaef;
+  --muted: #9ca5b3;
+  --rule: #27303a;
+  --accent: #66c6cd;
+  --accent-ink: #0b1316;
+  --accent-soft: #13282b;
+  --q-red: #e8665a;
+  --q-green: #4fbf7e;
+  --q-blue: #6b93ec;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { -webkit-text-size-adjust: 100%; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.62;
+  font-optical-sizing: auto;
+}
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:hover { text-decoration-thickness: 2px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+h1, h2, h3, h4 { font-family: var(--font-display); text-wrap: balance; margin: 0; line-height: 1.2; }
+p { margin: 0; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+img, svg { max-width: 100%; }
+.mono { font-family: var(--font-mono); font-size: 0.82em; font-variant-numeric: tabular-nums; }
+.muted { color: var(--muted); }
+
+.wrap { max-width: 1100px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 40px); }
+
+/* Top bar */
+.topbar {
+  position: sticky; top: 0; z-index: 10;
+  background: color-mix(in srgb, var(--paper) 90%, transparent);
+  backdrop-filter: saturate(1.2) blur(8px);
+  -webkit-backdrop-filter: saturate(1.2) blur(8px);
+  border-bottom: 1px solid var(--rule);
+}
+.topbar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: var(--bar-h); }
+.brand { display: flex; align-items: center; gap: 0.6rem; color: var(--ink); text-decoration: none; font-family: var(--font-display); font-weight: 600; font-size: 1.05rem; white-space: nowrap; }
+.brand svg { width: 22px; height: 22px; flex: none; }
+.nav ul { display: flex; gap: 0.15rem; }
+.nav a {
+  display: block; padding: 0.45rem 0.6rem; border-radius: 7px;
+  font-family: var(--font-display); font-size: 0.92rem; font-weight: 500;
+  color: var(--muted); text-decoration: none; white-space: nowrap;
+}
+.nav a:hover { color: var(--ink); background: var(--accent-soft); }
+.nav a[aria-current="page"] { color: var(--ink); box-shadow: inset 0 -2px 0 var(--accent); border-radius: 7px 7px 0 0; }
+
+/* Mark: three quarks in a color singlet */
+.mark .bond { stroke: var(--muted); stroke-width: 1.1; opacity: 0.55; fill: none; }
+.mark .r { fill: var(--q-red); }
+.mark .g { fill: var(--q-green); }
+.mark .b { fill: var(--q-blue); }
+
+/* Hero */
+.hero { display: grid; grid-template-columns: minmax(0, 1fr) 17.5rem; gap: clamp(1.75rem, 4vw, 3.5rem); padding: clamp(2.25rem, 5vw, 3.75rem) 0 clamp(2rem, 4vw, 3rem); align-items: start; }
+.hero h1 { font-size: clamp(2.2rem, 5.2vw, 3.4rem); font-weight: 650; letter-spacing: -0.022em; line-height: 1.04; }
+.roles { margin-top: 0.9rem; display: grid; gap: 0.2rem; font-family: var(--font-display); font-size: 1.04rem; color: var(--muted); }
+.roles li { display: flex; gap: 0.55rem; align-items: baseline; }
+.roles li::before { content: ""; width: 0.42rem; height: 0.42rem; border-radius: 50%; background: var(--accent); flex: none; transform: translateY(-0.12rem); }
+.tagline { margin-top: 1.4rem; font-family: var(--font-display); font-size: 1.2rem; font-weight: 500; color: var(--ink); max-width: 40ch; }
+.bio { margin-top: 1.1rem; display: grid; gap: 0.95rem; max-width: 66ch; }
+.links { margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.btn {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-family: var(--font-display); font-size: 0.9rem; font-weight: 500;
+  padding: 0.42rem 0.8rem; border-radius: 999px;
+  border: 1px solid var(--rule); background: var(--surface); color: var(--ink); text-decoration: none;
+}
+.btn:hover { border-color: var(--accent); color: var(--accent); }
+.btn .mono { font-size: 0.8rem; }
+
+.card { background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius); }
+.portrait { padding: 0.9rem; display: grid; gap: 1rem; }
+.portrait .frame { aspect-ratio: 1 / 1; border-radius: 10px; background: var(--accent-soft); display: grid; place-items: center; position: relative; overflow: hidden; }
+.portrait .frame svg { width: 46%; height: auto; }
+.portrait .frame .initials { position: absolute; bottom: 0.7rem; left: 0.85rem; font-family: var(--font-display); font-weight: 600; font-size: 0.85rem; letter-spacing: 0.08em; color: var(--muted); }
+.addr { display: grid; gap: 0.85rem; font-size: 0.86rem; line-height: 1.45; color: var(--muted); padding: 0 0.15rem 0.2rem; }
+.addr strong { display: block; font-family: var(--font-display); font-size: 0.74rem; letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink); font-weight: 600; margin-bottom: 0.15rem; }
+
+/* Sections */
+.section { display: grid; grid-template-columns: 10.5rem minmax(0, 1fr); gap: 2rem; padding: clamp(2.25rem, 5vw, 3.25rem) 0; border-top: 1px solid var(--rule); scroll-margin-top: var(--bar-h); }
+.section > h2 { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted); padding-top: 0.3rem; position: sticky; top: calc(var(--bar-h) + 1.25rem); align-self: start; }
+.stack { display: grid; gap: 1.5rem; min-width: 0; }
+.lede { max-width: 66ch; }
+
+/* News */
+.news li { display: grid; grid-template-columns: 6.25rem minmax(0, 1fr); gap: 1rem; padding: 0.55rem 0; border-bottom: 1px dashed var(--rule); }
+.news li:last-child { border-bottom: 0; }
+.news .mono { color: var(--muted); padding-top: 0.12rem; }
+
+/* Research */
+.project { padding: clamp(1.15rem, 2.6vw, 1.8rem); display: grid; gap: 1.05rem; }
+.project h3 { font-size: 1.38rem; font-weight: 650; letter-spacing: -0.01em; }
+.project .where { font-family: var(--font-display); font-size: 0.92rem; color: var(--accent); font-weight: 500; margin-top: 0.3rem; }
+.project p { max-width: 68ch; }
+.pipeline { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.25rem; }
+.pipeline li { display: flex; align-items: center; gap: 0.25rem; }
+.pipeline li:not(:last-child)::after { content: "\2192"; color: var(--muted); font-family: var(--font-display); padding: 0 0.15rem; }
+.node { font-family: var(--font-mono); font-size: 0.78rem; padding: 0.32rem 0.6rem; border: 1px solid var(--rule); border-radius: 7px; background: var(--paper); white-space: nowrap; }
+.node b { font-weight: 500; color: var(--accent); }
+.facts { display: grid; grid-template-columns: 8.75rem minmax(0, 1fr); gap: 0.55rem 1.1rem; margin: 0; padding-top: 0.25rem; border-top: 1px solid var(--rule); }
+.facts dt { font-family: var(--font-display); font-weight: 600; font-size: 0.9rem; color: var(--muted); padding-top: 0.55rem; }
+.facts dd { margin: 0; padding-top: 0.5rem; }
+.next { font-size: 0.95rem; color: var(--muted); }
+.next strong { font-family: var(--font-display); color: var(--ink); font-weight: 600; }
+
+.minor-title { font-size: 1rem; font-weight: 600; color: var(--muted); letter-spacing: 0.02em; margin-top: 0.5rem; }
+.grid-mini { display: grid; grid-template-columns: repeat(auto-fit, minmax(15.5rem, 1fr)); gap: 1.1rem 1.6rem; }
+.mini { border-top: 2px solid var(--ink); padding-top: 0.7rem; display: grid; gap: 0.35rem; align-content: start; }
+.mini h4 { font-size: 1.02rem; font-weight: 600; }
+.mini p { font-size: 0.95rem; }
+.mini .mono { color: var(--muted); }
+
+/* Publications */
+.pub-group { display: grid; gap: 0.9rem; }
+.pub-group h3 { font-size: 0.95rem; font-weight: 600; color: var(--muted); font-variant-numeric: tabular-nums; }
+.pubs { counter-reset: pub; display: grid; gap: 1.15rem; }
+.pubs li { display: grid; grid-template-columns: 2.1rem minmax(0, 1fr); gap: 0.5rem; }
+.pubs li::before { counter-increment: pub; content: "[" counter(pub) "]"; font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted); padding-top: 0.25rem; }
+.pubs.cont { counter-reset: pub 2; }
+.pub-title { font-family: var(--font-display); font-weight: 600; font-size: 1.06rem; line-height: 1.35; }
+.authors { font-size: 0.96rem; margin-top: 0.2rem; }
+.authors .me { font-weight: 700; }
+.venue { font-size: 0.94rem; font-style: italic; color: var(--muted); }
+.pub-links { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.45rem; }
+.tag { font-family: var(--font-mono); font-size: 0.74rem; border: 1px solid var(--rule); border-radius: 5px; padding: 0.14rem 0.5rem; text-decoration: none; color: var(--accent); background: var(--surface); }
+a.tag:hover { border-color: var(--accent); }
+.note-line { font-size: 0.95rem; color: var(--muted); }
+
+/* Talks */
+.talks li { display: grid; grid-template-columns: 6.25rem 7.6rem minmax(0, 1fr); gap: 1rem; padding: 0.7rem 0; border-bottom: 1px dashed var(--rule); align-items: start; }
+.talks li:last-child { border-bottom: 0; }
+.talks .mono { color: var(--muted); padding-top: 0.15rem; }
+.kind { justify-self: start; font-family: var(--font-display); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; border: 1px solid var(--rule); border-radius: 999px; padding: 0.12rem 0.55rem; color: var(--muted); white-space: nowrap; margin-top: 0.12rem; }
+.kind.invited { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.kind.prize { border-color: var(--accent); color: var(--accent); }
+.talk-title { font-family: var(--font-display); font-weight: 600; }
+.talk-venue { font-size: 0.95rem; color: var(--muted); }
+
+/* CV rows */
+.rows li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0.25rem 1.25rem; padding: 0.65rem 0; border-bottom: 1px dashed var(--rule); }
+.rows li:last-child { border-bottom: 0; }
+.row-title { font-family: var(--font-display); font-weight: 600; }
+.row-sub { font-size: 0.95rem; color: var(--muted); grid-column: 1; }
+.when { font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; grid-column: 2; grid-row: 1; padding-top: 0.15rem; }
+.cv-block { display: grid; gap: 0.35rem; }
+.cv-block h3 { font-size: 1.04rem; font-weight: 600; }
+.skills { display: grid; grid-template-columns: 9.5rem minmax(0, 1fr); gap: 0.7rem 1rem; margin: 0.5rem 0 0; }
+.skills dt { font-family: var(--font-display); font-weight: 600; font-size: 0.92rem; color: var(--muted); padding-top: 0.15rem; }
+.skills dd { margin: 0; display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.chip { font-family: var(--font-mono); font-size: 0.76rem; border: 1px solid var(--rule); border-radius: 5px; padding: 0.14rem 0.5rem; background: var(--surface); }
+
+/* Notes and code cards */
+.link-card { display: grid; gap: 0.45rem; padding: clamp(1.1rem, 2.5vw, 1.5rem); text-decoration: none; color: var(--ink); }
+.link-card:hover { border-color: var(--accent); }
+.link-card h3 { font-size: 1.22rem; font-weight: 650; }
+.link-card .go { font-family: var(--font-display); font-weight: 600; font-size: 0.92rem; color: var(--accent); }
+.link-card .mono { color: var(--muted); }
+.repo-name { font-family: var(--font-mono); font-size: 1rem; font-weight: 500; }
+
+/* Footer */
+.footer { border-top: 1px solid var(--rule); padding: 1.75rem 0 2.75rem; font-size: 0.88rem; color: var(--muted); }
+.footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.75rem 1.5rem; }
+.footer a { color: var(--muted); }
+
+/* Note view */
+#note-bk-surrogates { scroll-margin-top: var(--bar-h); }
+.article { max-width: 70ch; margin: 0 auto; padding: clamp(1.75rem, 4vw, 2.75rem) 0 4rem; }
+.back { font-family: var(--font-display); font-weight: 500; font-size: 0.92rem; text-decoration: none; }
+.article header { margin: 1.25rem 0 1.75rem; display: grid; gap: 0.6rem; }
+.article h1 { font-size: clamp(1.85rem, 4.2vw, 2.55rem); font-weight: 650; letter-spacing: -0.018em; line-height: 1.12; }
+.article .sub { font-family: var(--font-display); font-size: 1.12rem; color: var(--muted); }
+.article h2 { font-size: 1.28rem; font-weight: 650; margin: 2.2rem 0 0.75rem; }
+.article p + p { margin-top: 0.95rem; }
+.article .eq { margin: 1.15rem 0; overflow-x: auto; overflow-y: hidden; }
+.article ul.points { list-style: disc; padding-left: 1.25rem; display: grid; gap: 0.4rem; margin: 0.9rem 0; }
+.article .aside { margin-top: 2.5rem; padding: 1rem 1.15rem; border-left: 3px solid var(--accent); background: var(--accent-soft); border-radius: 0 10px 10px 0; font-size: 0.95rem; }
+mjx-container[display="true"] { overflow-x: auto; overflow-y: hidden; max-width: 100%; padding: 0.2rem 0; }
+
+/* Narrow screens */
+@media (max-width: 860px) {
+  :root { --bar-h: 6.4rem; }
+  .topbar .wrap { flex-direction: column; align-items: stretch; justify-content: center; gap: 0.15rem; padding-top: 0.55rem; padding-bottom: 0.35rem; }
+  .nav { overflow-x: auto; margin: 0 -0.6rem; scrollbar-width: none; }
+  .nav::-webkit-scrollbar { display: none; }
+  .hero { grid-template-columns: 1fr; }
+  .portrait { grid-template-columns: 8.5rem minmax(0, 1fr); align-items: start; }
+  .section { grid-template-columns: 1fr; gap: 1.1rem; }
+  .section > h2 { position: static; padding-top: 0; }
+}
+@media (max-width: 560px) {
+  body { font-size: 16.5px; }
+  .portrait { grid-template-columns: 1fr; }
+  .portrait .frame { max-width: 10rem; }
+  .facts, .skills { grid-template-columns: 1fr; gap: 0.1rem; }
+  .facts dd { padding-top: 0.1rem; padding-bottom: 0.4rem; }
+  .skills dd { margin-bottom: 0.6rem; }
+  .news li { grid-template-columns: 1fr; gap: 0.1rem; }
+  .talks li { grid-template-columns: auto minmax(0, 1fr); gap: 0.35rem 0.75rem; }
+  .talks li > div { grid-column: 1 / -1; }
+  .rows li { grid-template-columns: 1fr; }
+  .when { grid-column: 1; grid-row: auto; padding-top: 0; }
+}
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [["\\(", "\\)"]], displayMath: [["\\[", "\\]"]] },
+    svg: { fontCache: "global" },
+    options: { enableMenu: false }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" async></script>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="#about" aria-label="Junaid Saif Khan, home">
+      <svg class="mark" viewBox="0 0 24 24" aria-hidden="true">
+        <path class="bond" d="M12 4.6 L4.9 17.4 L19.1 17.4 Z"/>
+        <circle class="r" cx="12" cy="4.6" r="3.6"/>
+        <circle class="g" cx="4.9" cy="17.4" r="3.6"/>
+        <circle class="b" cx="19.1" cy="17.4" r="3.6"/>
+      </svg>
+      Junaid Saif Khan
+    </a>
+    <nav class="nav" aria-label="Sections">
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#research">Research</a></li>
+        <li><a href="#publications">Publications</a></li>
+        <li><a href="#talks">Talks</a></li>
+        <li><a href="#teaching">Teaching</a></li>
+        <li><a href="#cv">CV</a></li>
+        <li><a href="#code">Code</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="home" class="wrap">
+
+  <!-- About -->
+  <section id="about" class="hero" aria-labelledby="name">
+    <div>
+      <h1 id="name">Junaid Saif Khan</h1>
+      <ul class="roles">
+        <li>Ph.D. Candidate in Physics, Southern Methodist University</li>
+        <li>NSF MCgen Fellow, University of Cincinnati</li>
+      </ul>
+      <p class="tagline">Machine learning for QCD: small-\(x\) evolution and hadronization.</p>
+      <div class="bio">
+        <p>I'm a fourth-year Ph.D. candidate in physics at Southern Methodist University in Dallas, advised by Fredrick Olness. From November 2026 to April 2027 I'm in residence at the University of Cincinnati as an NSF MCgen Fellow, one of four fellows selected nationwide, working with Jure Zupan, Manuel Szewc and Philip Ilten.</p>
+        <p>A lot of particle and nuclear physics runs an expensive calculation inside a loop that keeps changing its parameters: a global fit, a generator tune, an uncertainty scan. My work makes that parameter dependence cheap. For small-\(x\) physics I train neural surrogates for the Balitsky-Kovchegov equation, so a global analysis of HERA and future Electron-Ion Collider data can call it millions of times. For hadronization I learn per-history weights that let the flavor parameters of PYTHIA's Lund string model be changed on event samples that already exist.</p>
+        <p>Before SMU I studied computational physics at the University of the Punjab and physics at LUMS in Lahore, where I also spent four years as a teaching assistant. In 2019 I was selected to attend the 69th Lindau Nobel Laureate Meeting, which was dedicated to physics.</p>
+      </div>
+      <div class="links">
+        <a class="btn" href="https://github.com/junaidsaifkhan">GitHub</a>
+        <a class="btn" href="https://orcid.org/0000-0002-3480-9823">ORCID</a>
+        <a class="btn" href="https://inspirehep.net/authors/3199800">INSPIRE-HEP</a>
+        <a class="btn" href="https://www.linkedin.com/in/junaidsaifkhan">LinkedIn</a>
+      </div>
+    </div>
+
+    <aside class="card portrait" aria-label="Affiliations">
+      <!-- To use a photo on GitHub Pages, replace this .frame div with:
+           <img src="assets/img/prof_pic.jpg" alt="Junaid Saif Khan" style="border-radius:10px;width:100%;aspect-ratio:1/1;object-fit:cover"> -->
+      <div class="frame">
+        <svg class="mark" viewBox="0 0 24 24" role="img" aria-label="Three quarks in a color singlet">
+          <path class="bond" d="M12 4.6 L4.9 17.4 L19.1 17.4 Z"/>
+          <circle class="r" cx="12" cy="4.6" r="3.6"/>
+          <circle class="g" cx="4.9" cy="17.4" r="3.6"/>
+          <circle class="b" cx="19.1" cy="17.4" r="3.6"/>
+        </svg>
+        <span class="initials">J S K</span>
+      </div>
+      <div class="addr">
+        <div><strong>In residence, Nov 2026 to Apr 2027</strong>Department of Physics, University of Cincinnati<br>Geology-Physics Building, Room 433<br>Cincinnati, OH 45221</div>
+        <div><strong>Home institution</strong>Department of Physics, Southern Methodist University<br>Dallas, TX 75275</div>
+      </div>
+    </aside>
+  </section>
+
+  <!-- News -->
+  <section id="news" class="section" aria-labelledby="news-h">
+    <h2 id="news-h">News</h2>
+    <ul class="news">
+      <li><span class="mono">Nov 2026</span><span>Started my NSF MCgen residency at the University of Cincinnati, running to April 2027.</span></li>
+      <li><span class="mono">Sep 2026</span><span>Our DIS2026 proceedings on an ML surrogate for rcBK are on arXiv: <a href="https://arxiv.org/abs/2609.00230">2609.00230</a>.</span></li>
+      <li><span class="mono">Aug 2026</span><span>Talk at IAIFI in Boston.</span></li>
+      <li><span class="mono">Jun 2026</span><span>Invited talk at the EIC Theory Institute, Brookhaven National Laboratory.</span></li>
+      <li><span class="mono">Jun 2026</span><span>Talk at the Center for Frontiers in Nuclear Science (CFNS), Stony Brook University.</span></li>
+      <li><span class="mono">May 2026</span><span>Awarded the SMU Provost's Summer Research Grant.</span></li>
+      <li><span class="mono">2025</span><span>2nd prize in the HUGS poster session at Jefferson Lab.</span></li>
+    </ul>
+  </section>
+
+  <!-- Research -->
+  <section id="research" class="section" aria-labelledby="research-h">
+    <h2 id="research-h">Research</h2>
+    <div class="stack">
+
+      <article class="card project" aria-labelledby="p-bk">
+        <div>
+          <h3 id="p-bk">Neural surrogates for small-\(x\) evolution</h3>
+          <p class="where">SURGE Topical Collaboration, since 2023 &middot; with Fredrick Olness (SMU)</p>
+        </div>
+        <p>At small Bjorken-\(x\) the gluon density in a proton or nucleus keeps growing until nonlinear effects tame it. The running-coupling Balitsky-Kovchegov (rcBK) equation describes this through the dipole amplitude \(N(\eta, r)\). One numerical evolution takes minutes, and a global fit can need around \(10^6\) of them. I build neural networks that stand in for the solver inside the fit loop.</p>
+        <ol class="pipeline" aria-label="Surrogate workflow">
+          <li><span class="node">rcBK / bkEval solver</span></li>
+          <li><span class="node">training grid <b>~80 GB</b></span></li>
+          <li><span class="node">MLP &middot; DeepONet <b>~10 MB</b></span></li>
+          <li><span class="node">global \(\chi^2\) fit</span></li>
+        </ol>
+        <dl class="facts">
+          <dt>Inputs</dt>
+          <dd>\(\{\eta,\ \log_{10} r,\ \gamma,\ C,\ Q_{s0}^2\}\), with an MV\(_\gamma\) initial condition and running coupling.</dd>
+          <dt>Speed</dt>
+          <dd>About 1 ms per grid point, smooth and differentiable, so gradient-based \(\chi^2\) minimization works on it directly.</dd>
+          <dt>Accuracy</dt>
+          <dd>The MLP reproduces \(F_2\), \(F_L\) and the reduced cross section to about 2% or better.</dd>
+          <dt>Architectures</dt>
+          <dd>An MLP for grid-wise prediction, and a DeepONet that evaluates at arbitrary points off the training grid.</dd>
+        </dl>
+        <p class="next"><strong>Next:</strong> integrating the surrogate with xFitter, adding NLO terms to the evolution, and trying a JIMWLK approach.</p>
+      </article>
+
+      <article class="card project" aria-labelledby="p-shomer">
+        <div>
+          <h3 id="p-shomer">Flavor in string hadronization (Shomer)</h3>
+          <p class="where">NSF MCgen Fellowship, University of Cincinnati &middot; with Jure Zupan, Manuel Szewc and Philip Ilten</p>
+        </div>
+        <p>PYTHIA turns quarks and gluons into hadrons with the Lund string model, where a few hand-tuned parameters decide which flavors appear each time a string breaks. The MLhad collaboration's HOMER method reweights string fragmentation histories, so model parameters can be changed after the events exist. Shomer (HOMER plus <i>sabor</i>, flavor) extends that idea to flavor selection.</p>
+        <ol class="pipeline" aria-label="Reweighting workflow">
+          <li><span class="node">PYTHIA 8 Lund string</span></li>
+          <li><span class="node">fragmentation histories</span></li>
+          <li><span class="node">learned weight <b>w(h)</b></span></li>
+          <li><span class="node">reweighted observables</span></li>
+        </ol>
+        <dl class="facts">
+          <dt>What is learned</dt>
+          <dd>The kinematic fragmentation function stays frozen. Only the flavor selector is learned: strangeness suppression, the vector-to-pseudoscalar ratio and diquark suppression.</dd>
+          <dt>Why weights</dt>
+          <dd>Swapping a pion for a kaon changes a mass, and with it the kinematics of the whole event. So the network assigns a weight to each history, and only observable-level distributions have to match data.</dd>
+          <dt>First stage</dt>
+          <dd>Quark-antiquark strings with gluons removed, so any mismatch can be traced to flavor rather than kinematics.</dd>
+          <dt>Diagnostics</dt>
+          <dd>Effective sample size \(N_{\mathrm{eff}} = (\sum_i w_i)^2 / \sum_i w_i^2\), plus classifier AUC from calibrated scores.</dd>
+        </dl>
+      </article>
+
+      <h3 class="minor-title">Other work</h3>
+      <div class="grid-mini">
+        <div class="mini">
+          <h4>LHAPDF interpolation benchmark</h4>
+          <p>Measures what a PDF lookup costs by access pattern, and what accuracy you lose by thinning the grid. On CT18NLO, dropping every second \(x\) node halves the file with a median error of \(2.7\times10^{-6}\). The worst cases sit exactly where the \(x\)-grid spacing changes.</p>
+          <a class="mono" href="https://github.com/junaidsaifkhan/lhapdf-interp-bench">github.com/junaidsaifkhan/lhapdf-interp-bench</a>
+        </div>
+        <div class="mini">
+          <h4>VISTAS for the classroom</h4>
+          <p>With Philip Ilten and Jure Zupan, a short piece for the <i>American Journal of Physics</i> on the physics students learn from the VISTAS event-display tutorial notebook.</p>
+          <span class="mono">In preparation</span>
+        </div>
+        <div class="mini">
+          <h4>Federated learning on clinical data</h4>
+          <p>FedProx on non-IID heart disease data, with proximal regularization to control client drift across hospitals.</p>
+          <a class="mono" href="https://arxiv.org/abs/2601.17183">arXiv:2601.17183</a>
+        </div>
+        <div class="mini">
+          <h4>Quantitative strategies</h4>
+          <p>Member of the Quantitative Strategies team at Traders@SMU, working on RKHS-based models for the club's quant project.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Publications -->
+  <section id="publications" class="section" aria-labelledby="pubs-h">
+    <h2 id="pubs-h">Publications</h2>
+    <div class="stack">
+      <div class="pub-group">
+        <h3>2026</h3>
+        <ol class="pubs">
+          <li>
+            <div>
+              <div class="pub-title">Probing Dense Nuclear Matter at Small-\(x\): A workflow for a global analysis framework</div>
+              <div class="authors"><span class="me">J. S. Khan</span>, R. L. Lustberg, F. Olness, P. Risse, B. Schenke, B. Stevenson</div>
+              <div class="venue">Proceedings of DIS2026, XXXIII International Workshop on Deep Inelastic Scattering, Bologna, May 2026</div>
+              <div class="pub-links">
+                <a class="tag" href="https://arxiv.org/abs/2609.00230">arXiv:2609.00230</a>
+                <a class="tag" href="https://arxiv.org/pdf/2609.00230">PDF</a>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div>
+              <div class="pub-title">Federated Proximal Optimization for Privacy-Preserving Heart Disease Prediction: A Controlled Simulation Study on Non-IID Clinical Data</div>
+              <div class="authors">F. Asad, <span class="me">J. S. Khan</span>, M. Tariq, S. Munir, M. A. Khan</div>
+              <div class="venue">Preprint, cs.LG, January 2026</div>
+              <div class="pub-links">
+                <a class="tag" href="https://arxiv.org/abs/2601.17183">arXiv:2601.17183</a>
+                <a class="tag" href="https://arxiv.org/pdf/2601.17183">PDF</a>
+              </div>
+            </div>
+          </li>
+        </ol>
+      </div>
+      <div class="pub-group">
+        <h3>In preparation</h3>
+        <ol class="pubs cont">
+          <li>
+            <div>
+              <div class="pub-title">Machine-learning surrogates (MLP and DeepONet) for Balitsky-Kovchegov evolution in global QCD fits</div>
+              <div class="authors">With F. Olness and SURGE collaborators</div>
+            </div>
+          </li>
+          <li>
+            <div>
+              <div class="pub-title">Short paper on the VISTAS event-display tutorial notebook</div>
+              <div class="authors">With P. Ilten and J. Zupan, for the <i>American Journal of Physics</i></div>
+            </div>
+          </li>
+        </ol>
+      </div>
+      <p class="note-line">The live list with citation counts is on <a href="https://inspirehep.net/authors/3199800">INSPIRE-HEP</a>.</p>
+    </div>
+  </section>
+
+  <!-- Talks -->
+  <section id="talks" class="section" aria-labelledby="talks-h">
+    <h2 id="talks-h">Talks &amp; posters</h2>
+    <ul class="talks">
+      <li><span class="mono">Aug 2026</span><span class="kind">Talk</span><div><div class="talk-venue">IAIFI, Boston, MA</div></div></li>
+      <li><span class="mono">Jun 2026</span><span class="kind invited">Invited talk</span><div><div class="talk-title">Small-\(x\) Dynamics at the EIC via Machine Learning</div><div class="talk-venue">EIC Theory Institute, Brookhaven National Laboratory, Upton, NY</div></div></li>
+      <li><span class="mono">Jun 2026</span><span class="kind">Talk</span><div><div class="talk-venue">Center for Frontiers in Nuclear Science (CFNS), Stony Brook University, NY</div></div></li>
+      <li><span class="mono">May 2026</span><span class="kind">Proceedings</span><div><div class="talk-venue">DIS2026, Bologna, Italy (presented by F. Olness)</div></div></li>
+      <li><span class="mono">Jan 2026</span><span class="kind">Talk</span><div><div class="talk-venue">HEFTY collaboration meeting</div></div></li>
+      <li><span class="mono">Oct 2025</span><span class="kind">Talk</span><div><div class="talk-venue">Fall 2025 Joint Meeting of TAOAPS, TSAAPT and SPS Zone 13, Texas Christian University, Fort Worth, TX</div></div></li>
+      <li><span class="mono">Oct 2025</span><span class="kind">Poster</span><div><div class="talk-venue">Fall 2025 Joint Meeting of TAOAPS, TSAAPT and SPS Zone 13, Texas Christian University, Fort Worth, TX</div></div></li>
+      <li><span class="mono">2025</span><span class="kind prize">Poster &middot; 2nd prize</span><div><div class="talk-title">Parton Model vs Dipole Model</div><div class="talk-venue">HUGS summer school, Jefferson Lab, Newport News, VA</div></div></li>
+      <li><span class="mono">Apr 2025</span><span class="kind">Poster</span><div><div class="talk-venue">SMU Research and Innovation Week, Dallas, TX</div></div></li>
+      <li><span class="mono">Jun 2024</span><span class="kind">Talk</span><div><div class="talk-venue">HEFTY summer school</div></div></li>
+    </ul>
+  </section>
+
+  <!-- Teaching -->
+  <section id="teaching" class="section" aria-labelledby="teach-h">
+    <h2 id="teach-h">Teaching</h2>
+    <div class="stack">
+      <ul class="rows">
+        <li><span class="row-title">Graduate Teaching Assistant</span><span class="when">Aug 2023 &ndash; Aug 2025</span><span class="row-sub">Department of Physics, Southern Methodist University, Dallas, TX</span></li>
+        <li><span class="row-title">Teaching Assistant</span><span class="when">Jan 2017 &ndash; May 2021</span><span class="row-sub">Department of Physics, Lahore University of Management Sciences (LUMS), Lahore</span></li>
+      </ul>
+      <div class="cv-block">
+        <h3>Outreach</h3>
+        <ul class="rows">
+          <li><span class="row-title">Volunteer, Lahore Science Festival</span><span class="when">2017</span><span class="row-sub"><a href="https://ksslsm.org/">Khwarizmi Science Society</a>, Lahore</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CV -->
+  <section id="cv" class="section" aria-labelledby="cv-h">
+    <h2 id="cv-h">CV</h2>
+    <div class="stack">
+      <!-- On GitHub Pages, add a PDF link here, e.g. <a class="btn" href="assets/Junaid_Khan_CV.pdf">Download CV (PDF)</a> -->
+      <div class="cv-block">
+        <h3>Education</h3>
+        <ul class="rows">
+          <li><span class="row-title">Ph.D., Physics</span><span class="when">2023 &ndash; present</span><span class="row-sub">Southern Methodist University, Dallas, TX. Advisor: Fredrick Olness</span></li>
+          <li><span class="row-title">M.S., Physics</span><span class="when">2018</span><span class="row-sub">Lahore University of Management Sciences (LUMS), Lahore</span></li>
+          <li><span class="row-title">B.S., Computational Physics</span><span class="when"></span><span class="row-sub">University of the Punjab, Lahore</span></li>
+        </ul>
+      </div>
+      <div class="cv-block">
+        <h3>Positions</h3>
+        <ul class="rows">
+          <li><span class="row-title">NSF MCgen Fellow</span><span class="when">Nov 2026 &ndash; Apr 2027</span><span class="row-sub">Department of Physics, University of Cincinnati</span></li>
+          <li><span class="row-title">O'Donnell Graduate Research Fellow</span><span class="when">Sep 2025 &ndash; May 2026</span><span class="row-sub">O'Donnell Data Science and Research Computing Institute, SMU</span></li>
+          <li><span class="row-title">Graduate Teaching Assistant</span><span class="when">Aug 2023 &ndash; Aug 2025</span><span class="row-sub">Department of Physics, SMU</span></li>
+          <li><span class="row-title">Teaching Assistant</span><span class="when">Jan 2017 &ndash; May 2021</span><span class="row-sub">Department of Physics, LUMS</span></li>
+        </ul>
+      </div>
+      <div class="cv-block">
+        <h3>Fellowships &amp; awards</h3>
+        <ul class="rows">
+          <li><span class="row-title">NSF MCgen Fellowship</span><span class="when">2026</span><span class="row-sub">Monte Carlo General Education Network, one of four fellows nationwide (NSF OAC-2417682)</span></li>
+          <li><span class="row-title">Provost's Summer Research Grant</span><span class="when">2026</span><span class="row-sub">Southern Methodist University</span></li>
+          <li><span class="row-title">O'Donnell Graduate Research Fellowship</span><span class="when">2025</span><span class="row-sub">O'Donnell Data Science and Research Computing Institute, SMU</span></li>
+          <li><span class="row-title">2nd Prize, HUGS Poster Session</span><span class="when">2025</span><span class="row-sub">Hampton University Graduate Studies program, Jefferson Lab</span></li>
+          <li><span class="row-title">Selected participant, 69th Lindau Nobel Laureate Meeting</span><span class="when">2019</span><span class="row-sub">Lindau, Germany (physics)</span></li>
+        </ul>
+      </div>
+      <div class="cv-block">
+        <h3>Memberships</h3>
+        <ul class="rows">
+          <li><span class="row-title">SURGE (Saturated Glue) Topical Collaboration</span><span class="when">2023 &ndash; present</span><span class="row-sub">Global analysis of gluon saturation at small \(x\)</span></li>
+          <li><span class="row-title">American Physical Society</span><span class="when"></span><span class="row-sub">Member</span></li>
+        </ul>
+      </div>
+      <div class="cv-block">
+        <h3>Skills</h3>
+        <dl class="skills">
+          <dt>Programming &amp; ML</dt>
+          <dd><span class="chip">Python</span><span class="chip">C++</span><span class="chip">PyTorch</span><span class="chip">MLP</span><span class="chip">DeepONet</span></dd>
+          <dt>Physics codes</dt>
+          <dd><span class="chip">PYTHIA 8</span><span class="chip">LHAPDF</span><span class="chip">xFitter</span><span class="chip">ROOT</span><span class="chip">rcBK</span><span class="chip">bkEval</span></dd>
+          <dt>Tools</dt>
+          <dd><span class="chip">Mathematica</span><span class="chip">LaTeX</span><span class="chip">Git</span><span class="chip">HPC (SMU ManeFrame II)</span></dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- Code -->
+  <section id="code" class="section" aria-labelledby="code-h">
+    <h2 id="code-h">Code</h2>
+    <div class="stack">
+      <a class="card link-card" href="https://github.com/junaidsaifkhan/lhapdf-interp-bench">
+        <span class="repo-name">junaidsaifkhan/lhapdf-interp-bench</span>
+        <p>Evaluation cost per PDF value by access pattern, call granularity, kinematic region and error-set size, plus the interpolation error from decimating an lhagrid1 set. C++ and Python, run on CT18NLO.</p>
+        <span class="go">View on GitHub &rarr;</span>
+      </a>
+      <p class="note-line">Research code for the BK surrogates and for Shomer lives in collaboration repositories for now. More at <a href="https://github.com/junaidsaifkhan">github.com/junaidsaifkhan</a>.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <span>&copy; 2026 Junaid Saif Khan. Last updated November 2026.</span>
+    <span>The mark is three quarks, red, green and blue, in a color singlet.</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var home = document.getElementById("home");
+  var note = document.getElementById("note-bk-surrogates");
+  var NOTE = "note-bk-surrogates";
+  var links = Array.prototype.slice.call(document.querySelectorAll(".nav a"));
+
+  function mark(id) {
+    links.forEach(function (a) {
+      if (a.getAttribute("href") === "#" + id) a.setAttribute("aria-current", "page");
+      else a.removeAttribute("aria-current");
+    });
+  }
+
+  function route() {
+    var h = (location.hash || "").replace(/^#/, "");
+    var onNote = !!note && h === NOTE;
+    home.hidden = onNote;
+    if (note) note.hidden = !onNote;
+    if (onNote) {
+      mark("notes");
+      requestAnimationFrame(function () { window.scrollTo(0, 0); });
+      return;
+    }
+    var target = h ? document.getElementById(h) : null;
+    if (target) {
+      mark(h);
+      requestAnimationFrame(function () { target.scrollIntoView(); });
+    }
+  }
+
+  window.addEventListener("hashchange", route);
+  route();
+
+  // Highlight the section in view while scrolling the home view.
+  try {
+    var ids = links.map(function (a) { return a.getAttribute("href").slice(1); });
+    var io = new IntersectionObserver(function (entries) {
+      if (home.hidden) return;
+      entries.forEach(function (e) { if (e.isIntersecting) mark(e.target.id); });
+    }, { rootMargin: "-30% 0px -60% 0px" });
+    ids.forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el); });
+  } catch (err) { /* older browsers: no scroll highlight */ }
+})();
+</script>
+</body>
+</html>
