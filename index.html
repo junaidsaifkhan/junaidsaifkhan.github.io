@@ -202,7 +202,7 @@ a.tag:hover { border-color: var(--accent); }
 .note-line { font-size: 0.95rem; color: var(--muted); }
 
 /* Talks */
-.talks li { display: grid; grid-template-columns: 6.25rem 7.6rem minmax(0, 1fr); gap: 1rem; padding: 0.7rem 0; border-bottom: 1px dashed var(--rule); align-items: start; }
+.talks li { display: grid; grid-template-columns: 6.25rem 9.25rem minmax(0, 1fr); gap: 1rem; padding: 0.7rem 0; border-bottom: 1px dashed var(--rule); align-items: start; }
 .talks li:last-child { border-bottom: 0; }
 .talks .mono { color: var(--muted); padding-top: 0.15rem; }
 .kind { justify-self: start; font-family: var(--font-display); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; border: 1px solid var(--rule); border-radius: 999px; padding: 0.12rem 0.55rem; color: var(--muted); white-space: nowrap; margin-top: 0.12rem; }
@@ -328,10 +328,11 @@ mjx-container[display="true"] { overflow-x: auto; overflow-y: hidden; max-width:
       <div class="bio">
         <p>I'm a fourth-year Ph.D. candidate in physics at Southern Methodist University in Dallas, advised by Fredrick Olness. From November 2026 to April 2027 I'm in residence at the University of Cincinnati as an NSF MCgen Fellow, one of four fellows selected nationwide, working with Jure Zupan, Manuel Szewc and Philip Ilten.</p>
         <p>A lot of particle and nuclear physics runs an expensive calculation inside a loop that keeps changing its parameters: a global fit, a generator tune, an uncertainty scan. My work makes that parameter dependence cheap. For small-\(x\) physics I train neural surrogates for the Balitsky-Kovchegov equation, so a global analysis of HERA and future Electron-Ion Collider data can call it millions of times. For hadronization I learn per-history weights that let the flavor parameters of PYTHIA's Lund string model be changed on event samples that already exist.</p>
-        <p>Before SMU I studied computational physics at the University of the Punjab and physics at LUMS in Lahore, where I also spent four years as a teaching assistant. In 2019 I was selected to attend the 69th Lindau Nobel Laureate Meeting, which was dedicated to physics.</p>
+        <p>Before SMU I earned an M.S. in physics at UT Dallas, graduating first in my class, after an M.S. in physics at LUMS and a B.S. in computational physics at the University of the Punjab in Lahore. I have taught more than 850 students along the way. In 2019 I was the only master's graduate from Pakistan selected for the 69th Lindau Nobel Laureate Meeting, which was dedicated to physics.</p>
       </div>
       <div class="links">
         <a class="btn primary" href="https://www.linkedin.com/in/junaidsaifkhan">Get in touch on LinkedIn</a>
+        <a class="btn" href="assets/Junaid_Saif_Khan_CV.pdf">CV (PDF)</a>
         <a class="btn" href="https://github.com/junaidsaifkhan">GitHub</a>
         <a class="btn" href="https://orcid.org/0000-0002-3480-9823">ORCID</a>
         <a class="btn" href="https://inspirehep.net/authors/3199800">INSPIRE-HEP</a>
@@ -365,11 +366,12 @@ mjx-container[display="true"] { overflow-x: auto; overflow-y: hidden; max-width:
     <ul class="news">
       <li><span class="mono">Nov 2026</span><span>Started my NSF MCgen residency at the University of Cincinnati, running to April 2027.</span></li>
       <li><span class="mono">Sep 2026</span><span>Our DIS2026 proceedings on an ML surrogate for rcBK are on arXiv: <a href="https://arxiv.org/abs/2609.00230">2609.00230</a>.</span></li>
-      <li><span class="mono">Aug 2026</span><span>Talk at IAIFI in Boston.</span></li>
+      <li><span class="mono">Aug 2026</span><span>Talk at the NSF IAIFI Summer School in Boston.</span></li>
       <li><span class="mono">Jun 2026</span><span>Invited talk at the EIC Theory Institute, Brookhaven National Laboratory.</span></li>
       <li><span class="mono">Jun 2026</span><span>Talk at the Center for Frontiers in Nuclear Science (CFNS), Stony Brook University.</span></li>
       <li><span class="mono">May 2026</span><span>Awarded the SMU Provost's Summer Research Grant.</span></li>
-      <li><span class="mono">2025</span><span>2nd prize in the HUGS poster session at Jefferson Lab.</span></li>
+      <li><span class="mono">Apr 2026</span><span>Represented SMU at the AAAS CASE science policy workshop in Washington, D.C.</span></li>
+      <li><span class="mono">Jun 2025</span><span>2nd prize in the HUGS poster session at Jefferson Lab.</span></li>
     </ul>
   </section>
 
@@ -449,6 +451,13 @@ mjx-container[display="true"] { overflow-x: auto; overflow-y: hidden; max-width:
           <p>Member of the Quantitative Strategies team at Traders@SMU, working on RKHS-based models for the club's quant project.</p>
         </div>
       </div>
+
+      <h3 class="minor-title">Earlier research</h3>
+      <ul class="rows">
+        <li><span class="row-title">Gravitational lensing of compact binary objects</span><span class="when">2022 &ndash; 2023</span><span class="row-sub">UT Dallas, with Lindsay King. Lensing of electromagnetic and gravitational-wave signals from compact-object mergers</span></li>
+        <li><span class="row-title">D-branes and AdS/CFT (M.S. thesis)</span><span class="when">2017 &ndash; 2018</span><span class="row-sub">LUMS, with B. A. Qureshi</span></li>
+        <li><span class="row-title">Charmonium spectra in a smeared potential model (B.S. project)</span><span class="when">2015</span><span class="row-sub">University of the Punjab, with Bilal Masud. Meson masses within 1% of experiment</span></li>
+      </ul>
     </div>
   </section>
 
@@ -488,8 +497,8 @@ mjx-container[display="true"] { overflow-x: auto; overflow-y: hidden; max-width:
         <ol class="pubs cont">
           <li>
             <div>
-              <div class="pub-title">Machine-learning surrogates (MLP and DeepONet) for Balitsky-Kovchegov evolution in global QCD fits</div>
-              <div class="authors">With F. Olness and SURGE collaborators</div>
+              <div class="pub-title">Machine Learning Surrogates for Nonlinear QCD Evolution in Dense Nuclear Matter</div>
+              <div class="authors"><span class="me">J. S. Khan</span> et al.</div>
             </div>
           </li>
           <li>
@@ -507,32 +516,52 @@ mjx-container[display="true"] { overflow-x: auto; overflow-y: hidden; max-width:
   <!-- Talks -->
   <section id="talks" class="section" aria-labelledby="talks-h">
     <h2 id="talks-h">Talks &amp; posters</h2>
-    <ul class="talks">
-      <li><span class="mono">Aug 2026</span><span class="kind">Talk</span><div><div class="talk-venue">IAIFI, Boston, MA</div></div></li>
-      <li><span class="mono">Jun 2026</span><span class="kind invited">Invited talk</span><div><div class="talk-title">Small-\(x\) Dynamics at the EIC via Machine Learning</div><div class="talk-venue">EIC Theory Institute, Brookhaven National Laboratory, Upton, NY</div></div></li>
-      <li><span class="mono">Jun 2026</span><span class="kind">Talk</span><div><div class="talk-venue">Center for Frontiers in Nuclear Science (CFNS), Stony Brook University, NY</div></div></li>
-      <li><span class="mono">May 2026</span><span class="kind">Proceedings</span><div><div class="talk-venue">DIS2026, Bologna, Italy (presented by F. Olness)</div></div></li>
-      <li><span class="mono">Jan 2026</span><span class="kind">Talk</span><div><div class="talk-venue">HEFTY collaboration meeting</div></div></li>
-      <li><span class="mono">Oct 2025</span><span class="kind">Talk</span><div><div class="talk-venue">Fall 2025 Joint Meeting of TAOAPS, TSAAPT and SPS Zone 13, Texas Christian University, Fort Worth, TX</div></div></li>
-      <li><span class="mono">Oct 2025</span><span class="kind">Poster</span><div><div class="talk-venue">Fall 2025 Joint Meeting of TAOAPS, TSAAPT and SPS Zone 13, Texas Christian University, Fort Worth, TX</div></div></li>
-      <li><span class="mono">2025</span><span class="kind prize">Poster &middot; 2nd prize</span><div><div class="talk-title">Parton Model vs Dipole Model</div><div class="talk-venue">HUGS summer school, Jefferson Lab, Newport News, VA</div></div></li>
-      <li><span class="mono">Apr 2025</span><span class="kind">Poster</span><div><div class="talk-venue">SMU Research and Innovation Week, Dallas, TX</div></div></li>
-      <li><span class="mono">Jun 2024</span><span class="kind">Talk</span><div><div class="talk-venue">HEFTY summer school</div></div></li>
-    </ul>
+    <div class="stack">
+      <ul class="talks">
+        <li><span class="mono">Aug 2026</span><span class="kind">Talk</span><div><div class="talk-title">Bridging QCD Theory and ML for Next-Gen Nuclear Physics</div><div class="talk-venue">NSF IAIFI Summer School, University of Massachusetts Boston, MA</div></div></li>
+        <li><span class="mono">Jun 2026</span><span class="kind invited">Invited talk</span><div><div class="talk-title">Small-\(x\) Dynamics at the EIC via Machine Learning</div><div class="talk-venue">EIC Theory Institute, Brookhaven National Laboratory, Upton, NY</div></div></li>
+        <li><span class="mono">Jun 2026</span><span class="kind">Talk</span><div><div class="talk-title">Nonlinear Parton Dynamics and the Role of ML Surrogate Models</div><div class="talk-venue">CFNS Summer School on the Physics of the EIC, Stony Brook University, NY</div></div></li>
+        <li><span class="mono">May 2026</span><span class="kind">Proceedings</span><div><div class="talk-title">Probing Dense Nuclear Matter at Small-\(x\)</div><div class="talk-venue">DIS2026, Bologna, Italy (presented by F. Olness)</div></div></li>
+        <li><span class="mono">Jan 2026</span><span class="kind">Talk</span><div><div class="talk-title">Applications of AI/ML in Nuclear and Particle Physics</div><div class="talk-venue">HEFTY Collaboration Meeting, Dallas, TX</div></div></li>
+        <li><span class="mono">Oct 2025</span><span class="kind">Talk</span><div><div class="talk-title">Nonlinear QCD Evolution with Machine Learning for the EIC</div><div class="talk-venue">Texas, Arkansas, Oklahoma Section of the APS, Texas Christian University, Fort Worth, TX</div></div></li>
+        <li><span class="mono">Oct 2025</span><span class="kind">Poster</span><div><div class="talk-title">Unraveling QCD Puzzles via the Electron-Ion Collider</div><div class="talk-venue">Texas, Arkansas, Oklahoma Section of the APS, Texas Christian University, Fort Worth, TX</div></div></li>
+        <li><span class="mono">Jun 2025</span><span class="kind prize">Poster &middot; 2nd prize</span><div><div class="talk-title">Nonlinear QCD at Small-\(x\): Parton Model vs Dipole Model</div><div class="talk-venue">HUGS Summer School, Jefferson Lab, Newport News, VA</div></div></li>
+        <li><span class="mono">Apr 2025</span><span class="kind">Poster</span><div><div class="talk-title">Exploring Gluon Dynamics in the Small-\(x\) Regime of QCD</div><div class="talk-venue">SMU Research and Innovation Week, Dallas, TX</div></div></li>
+        <li><span class="mono">Jun 2024</span><span class="kind">Talk</span><div><div class="talk-title">QCD in the Non-Perturbative Region: Gluons in Small-\(x\) Regime</div><div class="talk-venue">HEFTY Summer School, Santa Fe, NM</div></div></li>
+      </ul>
+      <div class="cv-block">
+        <h3>Outreach talks</h3>
+        <ul class="talks">
+          <li><span class="mono">Jul 2024</span><span class="kind">Workshop</span><div><div class="talk-title">Absurdity of Infinity in Physics</div><div class="talk-venue">QuarkNet Annual Workshop for Texas high school physics teachers, SMU</div></div></li>
+          <li><span class="mono">Jun 2020</span><span class="kind">Invited</span><div><div class="talk-title">Introduction to String Theory &amp; Dualities</div><div class="talk-venue">University of Management and Technology, Lahore</div></div></li>
+          <li><span class="mono">Jun 2020</span><span class="kind">Public</span><div><div class="talk-title">Road to String Theory &amp; Holography</div><div class="talk-venue">Online public seminar</div></div></li>
+          <li><span class="mono">Sep 2019</span><span class="kind">Public</span><div><div class="talk-title">Image of a Black Hole: Faith or Science?</div><div class="talk-venue">National University of Computer &amp; Emerging Sciences (FAST), Lahore</div></div></li>
+        </ul>
+      </div>
+    </div>
   </section>
 
   <!-- Teaching -->
   <section id="teaching" class="section" aria-labelledby="teach-h">
     <h2 id="teach-h">Teaching</h2>
     <div class="stack">
+      <p class="lede">I have taught more than 850 undergraduates and 8 graduate students across 10 laboratory and 13 lecture courses at four universities.</p>
       <ul class="rows">
-        <li><span class="row-title">Graduate Teaching Assistant</span><span class="when">Aug 2023 &ndash; Aug 2025</span><span class="row-sub">Department of Physics, Southern Methodist University, Dallas, TX</span></li>
-        <li><span class="row-title">Teaching Assistant</span><span class="when">Jan 2017 &ndash; May 2021</span><span class="row-sub">Department of Physics, Lahore University of Management Sciences (LUMS), Lahore</span></li>
+        <li><span class="row-title">Graduate Teaching Assistant</span><span class="when">Aug 2023 &ndash; Aug 2025</span><span class="row-sub">Southern Methodist University, Dallas, TX. Mechanics Laboratory, Electricity and Magnetism Laboratory, Introductory Mechanics</span></li>
+        <li><span class="row-title">Graduate Teaching Assistant</span><span class="when">Aug 2021 &ndash; May 2023</span><span class="row-sub">The University of Texas at Dallas, Richardson, TX. Mechanics, College Physics I, Physics Laboratory II</span></li>
+        <li><span class="row-title">Visiting Lecturer</span><span class="when">Aug 2018 &ndash; Feb 2021</span><span class="row-sub">National University of Computer and Emerging Sciences (FAST), Lahore. Physics for Engineers, Applied Physics</span></li>
+        <li><span class="row-title">Teaching Assistant</span><span class="when">Jan 2017 &ndash; May 2021</span><span class="row-sub">Lahore University of Management Sciences (LUMS), Lahore. Modern Physics, Mechanics, Introduction to Quantum Field Theory, General Relativity, Electricity and Magnetism</span></li>
       </ul>
       <div class="cv-block">
-        <h3>Outreach</h3>
+        <h3>Outreach &amp; service</h3>
         <ul class="rows">
-          <li><span class="row-title">Volunteer, Lahore Science Festival</span><span class="when">2017</span><span class="row-sub"><a href="https://ksslsm.org/">Khwarizmi Science Society</a>, Lahore</span></li>
+          <li><span class="row-title">AAAS CASE Workshop, representing SMU</span><span class="when">Apr 2026</span><span class="row-sub">Science policy training and meetings with Congressional staff on federal research funding, Washington, D.C.</span></li>
+          <li><span class="row-title">Poster judge, SMU Research and Innovation Week</span><span class="when">Apr 2025</span><span class="row-sub">Undergraduate research projects</span></li>
+          <li><span class="row-title">Judge, Dallas Regional Science and Engineering Fair</span><span class="when">Feb 2025</span><span class="row-sub">High school STEM posters</span></li>
+          <li><span class="row-title">Organizing committee, Total Solar Eclipse event</span><span class="when">Apr 2024</span><span class="row-sub">Southern Methodist University</span></li>
+          <li><span class="row-title">Poster judge, Summer Platform for Undergraduate Research</span><span class="when">Jul 2022</span><span class="row-sub">The University of Texas at Dallas</span></li>
+          <li><span class="row-title">Head organizer, CERN LHC Interactive Tunnel</span><span class="when">2019 &ndash; 2020</span><span class="row-sub">Lahore Science Festival and Children's Literature Festival, with CERN and the <a href="https://ksslsm.org/">Khwarizmi Science Society</a></span></li>
+          <li><span class="row-title">Exhibit demonstrator, Lahore Science Festival</span><span class="when">Jan 2017</span><span class="row-sub"><a href="https://ksslsm.org/">Khwarizmi Science Society</a>, Lahore</span></li>
         </ul>
       </div>
     </div>
@@ -542,50 +571,56 @@ mjx-container[display="true"] { overflow-x: auto; overflow-y: hidden; max-width:
   <section id="cv" class="section" aria-labelledby="cv-h">
     <h2 id="cv-h">CV</h2>
     <div class="stack">
-      <!-- On GitHub Pages, add a PDF link here, e.g. <a class="btn" href="assets/Junaid_Khan_CV.pdf">Download CV (PDF)</a> -->
+      <div class="links"><a class="btn primary" href="assets/Junaid_Saif_Khan_CV.pdf">Download full CV (PDF)</a></div>
       <div class="cv-block">
         <h3>Education</h3>
         <ul class="rows">
           <li><span class="row-title">Ph.D., Physics</span><span class="when">2023 &ndash; present</span><span class="row-sub">Southern Methodist University, Dallas, TX. Advisor: Fredrick Olness</span></li>
-          <li><span class="row-title">M.S., Physics</span><span class="when">2018</span><span class="row-sub">Lahore University of Management Sciences (LUMS), Lahore</span></li>
-          <li><span class="row-title">B.S., Computational Physics</span><span class="when"></span><span class="row-sub">University of the Punjab, Lahore</span></li>
+          <li><span class="row-title">M.S., Physics</span><span class="when">2021 &ndash; 2023</span><span class="row-sub">The University of Texas at Dallas, Richardson, TX. Graduated first in class</span></li>
+          <li><span class="row-title">M.S., Physics</span><span class="when">2016 &ndash; 2018</span><span class="row-sub">Lahore University of Management Sciences (LUMS), Lahore. Ranked third in class</span></li>
+          <li><span class="row-title">B.S., Computational Physics</span><span class="when">2012 &ndash; 2016</span><span class="row-sub">University of the Punjab, Lahore. Ranked third of 45</span></li>
         </ul>
       </div>
       <div class="cv-block">
-        <h3>Positions</h3>
+        <h3>Research positions</h3>
         <ul class="rows">
-          <li><span class="row-title">NSF MCgen Fellow</span><span class="when">Nov 2026 &ndash; Apr 2027</span><span class="row-sub">Department of Physics, University of Cincinnati</span></li>
-          <li><span class="row-title">O'Donnell Graduate Research Fellow</span><span class="when">Sep 2025 &ndash; May 2026</span><span class="row-sub">O'Donnell Data Science and Research Computing Institute, SMU</span></li>
-          <li><span class="row-title">Graduate Teaching Assistant</span><span class="when">Aug 2023 &ndash; Aug 2025</span><span class="row-sub">Department of Physics, SMU</span></li>
-          <li><span class="row-title">Teaching Assistant</span><span class="when">Jan 2017 &ndash; May 2021</span><span class="row-sub">Department of Physics, LUMS</span></li>
+          <li><span class="row-title">NSF MCgen Research Fellow</span><span class="when">Jan 2026 &ndash; present</span><span class="row-sub">University of Cincinnati. In residence November 2026 to April 2027</span></li>
+          <li><span class="row-title">Ph.D. researcher, Olness group</span><span class="when">Jun 2023 &ndash; present</span><span class="row-sub">Southern Methodist University. Small-\(x\) QCD and gluon saturation, SURGE Topical Collaboration</span></li>
+          <li><span class="row-title">O'Donnell Institute Graduate Research Fellow</span><span class="when">Sep 2025 &ndash; May 2026</span><span class="row-sub">O'Donnell Data Science and Research Computing Institute, SMU</span></li>
+          <li><span class="row-title">Graduate Researcher</span><span class="when">Jun 2022 &ndash; May 2023</span><span class="row-sub">The University of Texas at Dallas. Gravitational lensing of binary objects, with Lindsay King</span></li>
         </ul>
       </div>
       <div class="cv-block">
         <h3>Fellowships &amp; awards</h3>
         <ul class="rows">
-          <li><span class="row-title">NSF MCgen Fellowship</span><span class="when">2026</span><span class="row-sub">Monte Carlo General Education Network, one of four fellows nationwide (NSF OAC-2417682)</span></li>
+          <li><span class="row-title">NSF MCgen Research Fellowship</span><span class="when">2026</span><span class="row-sub">Monte Carlo General Education Network, one of four fellows nationwide (NSF OAC-2417682)</span></li>
           <li><span class="row-title">Provost's Summer Research Grant</span><span class="when">2026</span><span class="row-sub">Southern Methodist University</span></li>
-          <li><span class="row-title">O'Donnell Graduate Research Fellowship</span><span class="when">2025</span><span class="row-sub">O'Donnell Data Science and Research Computing Institute, SMU</span></li>
+          <li><span class="row-title">O'Donnell Institute Graduate Student Research Fellowship</span><span class="when">2025</span><span class="row-sub">O'Donnell Data Science and Research Computing Institute, SMU</span></li>
+          <li><span class="row-title">Alpha Chi "In Scholarship and In Service" Grant</span><span class="when">2025</span><span class="row-sub">Region II recipient, Alpha Chi National College Honor Society</span></li>
           <li><span class="row-title">2nd Prize, HUGS Poster Session</span><span class="when">2025</span><span class="row-sub">Hampton University Graduate Studies program, Jefferson Lab</span></li>
-          <li><span class="row-title">Selected participant, 69th Lindau Nobel Laureate Meeting</span><span class="when">2019</span><span class="row-sub">Lindau, Germany (physics)</span></li>
+          <li><span class="row-title">Alpha Chi National College Honor Society</span><span class="when">2024</span><span class="row-sub">Lifetime member, for the top 5% of students</span></li>
+          <li><span class="row-title">69th Lindau Nobel Laureate Meeting (Physics)</span><span class="when">2019</span><span class="row-sub">Only master's graduate from Pakistan selected. Returned for the Lindau Sciathon in 2020</span></li>
+          <li><span class="row-title">DFID Scholarship</span><span class="when">2016 &ndash; 2018</span><span class="row-sub">Full tuition and stipend for M.S. studies at LUMS</span></li>
+          <li><span class="row-title">Travel grants</span><span class="when">2024 &ndash; 2026</span><span class="row-sub">NSF IAIFI, EIC Theory Institute (BNL), CFNS, AAAS CASE, AI4EIC (MIT), HUGS, HEFTY</span></li>
         </ul>
       </div>
       <div class="cv-block">
         <h3>Memberships</h3>
         <ul class="rows">
           <li><span class="row-title">SURGE (Saturated Glue) Topical Collaboration</span><span class="when">2023 &ndash; present</span><span class="row-sub">Global analysis of gluon saturation at small \(x\)</span></li>
-          <li><span class="row-title">American Physical Society</span><span class="when"></span><span class="row-sub">Member</span></li>
+          <li><span class="row-title">Brookhaven National Laboratory</span><span class="when">2023 &ndash; present</span><span class="row-sub">Member</span></li>
+          <li><span class="row-title">American Physical Society</span><span class="when">2023 &ndash; present</span><span class="row-sub">Member</span></li>
         </ul>
       </div>
       <div class="cv-block">
         <h3>Skills</h3>
         <dl class="skills">
           <dt>Programming &amp; ML</dt>
-          <dd><span class="chip">Python</span><span class="chip">C++</span><span class="chip">PyTorch</span><span class="chip">MLP</span><span class="chip">DeepONet</span></dd>
+          <dd><span class="chip">Python</span><span class="chip">C++</span><span class="chip">PyTorch</span><span class="chip">Keras</span><span class="chip">scikit-learn</span><span class="chip">NumPy</span><span class="chip">Pandas</span><span class="chip">MATLAB</span><span class="chip">Mathematica</span></dd>
           <dt>Physics codes</dt>
           <dd><span class="chip">PYTHIA 8</span><span class="chip">LHAPDF</span><span class="chip">xFitter</span><span class="chip">ROOT</span><span class="chip">rcBK</span><span class="chip">bkEval</span></dd>
           <dt>Tools</dt>
-          <dd><span class="chip">Mathematica</span><span class="chip">LaTeX</span><span class="chip">Git</span><span class="chip">HPC (SMU ManeFrame II)</span></dd>
+          <dd><span class="chip">Git</span><span class="chip">LaTeX</span><span class="chip">Bash</span><span class="chip">HPC (SMU ManeFrame II)</span></dd>
         </dl>
       </div>
     </div>
