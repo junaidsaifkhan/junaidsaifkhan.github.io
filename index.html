@@ -120,7 +120,9 @@ img, svg { max-width: 100%; }
 .roles { margin-top: 0.9rem; display: grid; gap: 0.2rem; font-family: var(--font-display); font-size: 1.04rem; color: var(--muted); }
 .roles li { display: flex; gap: 0.55rem; align-items: baseline; }
 .roles li::before { content: ""; width: 0.42rem; height: 0.42rem; border-radius: 50%; background: var(--accent); flex: none; transform: translateY(-0.12rem); }
-.tagline { margin-top: 1.4rem; font-family: var(--font-display); font-size: 1.2rem; font-weight: 500; color: var(--ink); max-width: 40ch; }
+.tagline { margin-top: 1.4rem; font-family: var(--font-display); font-size: 1.2rem; font-weight: 500; color: var(--ink); max-width: 46ch; }
+.seeking { margin-top: 1rem; display: flex; width: fit-content; max-width: 100%; align-items: center; gap: 0.6rem; font-family: var(--font-display); font-size: 0.95rem; font-weight: 500; line-height: 1.4; padding: 0.45rem 0.9rem; border-radius: 999px; background: var(--accent-soft); color: var(--ink); }
+.seeking .dot { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--q-green); box-shadow: 0 0 0 3px color-mix(in srgb, var(--q-green) 25%, transparent); flex: none; }
 .bio { margin-top: 1.1rem; display: grid; gap: 0.95rem; max-width: 66ch; }
 .links { margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
 .btn {
@@ -131,6 +133,8 @@ img, svg { max-width: 100%; }
 }
 .btn:hover { border-color: var(--accent); color: var(--accent); }
 .btn .mono { font-size: 0.8rem; }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn.primary:hover { color: var(--accent-ink); filter: brightness(1.08); }
 
 .card { background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius); }
 .portrait { padding: 0.9rem; display: grid; gap: 1rem; }
@@ -146,6 +150,12 @@ img, svg { max-width: 100%; }
 .section > h2 { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted); padding-top: 0.3rem; position: sticky; top: calc(var(--bar-h) + 1.25rem); align-self: start; }
 .stack { display: grid; gap: 1.5rem; min-width: 0; }
 .lede { max-width: 66ch; }
+
+/* Currently */
+.now li { display: grid; grid-template-columns: 6.25rem minmax(0, 1fr); gap: 1rem; padding: 0.55rem 0; border-bottom: 1px dashed var(--rule); }
+.now li:last-child { border-bottom: 0; }
+.now-tag { font-family: var(--font-display); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); padding-top: 0.25rem; }
+.now-tag.seeking-tag { color: var(--accent); }
 
 /* News */
 .news li { display: grid; grid-template-columns: 6.25rem minmax(0, 1fr); gap: 1rem; padding: 0.55rem 0; border-bottom: 1px dashed var(--rule); }
@@ -260,7 +270,7 @@ mjx-container[display="true"] { overflow-x: auto; overflow-y: hidden; max-width:
   .facts, .skills { grid-template-columns: 1fr; gap: 0.1rem; }
   .facts dd { padding-top: 0.1rem; padding-bottom: 0.4rem; }
   .skills dd { margin-bottom: 0.6rem; }
-  .news li { grid-template-columns: 1fr; gap: 0.1rem; }
+  .news li, .now li { grid-template-columns: 1fr; gap: 0.1rem; }
   .talks li { grid-template-columns: auto minmax(0, 1fr); gap: 0.35rem 0.75rem; }
   .talks li > div { grid-column: 1 / -1; }
   .rows li { grid-template-columns: 1fr; }
@@ -313,17 +323,18 @@ mjx-container[display="true"] { overflow-x: auto; overflow-y: hidden; max-width:
         <li>Ph.D. Candidate in Physics, Southern Methodist University</li>
         <li>NSF MCgen Fellow, University of Cincinnati</li>
       </ul>
-      <p class="tagline">Machine learning for QCD: small-\(x\) evolution and hadronization.</p>
+      <p class="tagline">I build machine-learning surrogates that make expensive QCD calculations fast enough to fit to data.</p>
+      <p class="seeking"><span class="dot" aria-hidden="true"></span>Looking for a summer 2027 internship in machine learning or quantitative research.</p>
       <div class="bio">
         <p>I'm a fourth-year Ph.D. candidate in physics at Southern Methodist University in Dallas, advised by Fredrick Olness. From November 2026 to April 2027 I'm in residence at the University of Cincinnati as an NSF MCgen Fellow, one of four fellows selected nationwide, working with Jure Zupan, Manuel Szewc and Philip Ilten.</p>
         <p>A lot of particle and nuclear physics runs an expensive calculation inside a loop that keeps changing its parameters: a global fit, a generator tune, an uncertainty scan. My work makes that parameter dependence cheap. For small-\(x\) physics I train neural surrogates for the Balitsky-Kovchegov equation, so a global analysis of HERA and future Electron-Ion Collider data can call it millions of times. For hadronization I learn per-history weights that let the flavor parameters of PYTHIA's Lund string model be changed on event samples that already exist.</p>
         <p>Before SMU I studied computational physics at the University of the Punjab and physics at LUMS in Lahore, where I also spent four years as a teaching assistant. In 2019 I was selected to attend the 69th Lindau Nobel Laureate Meeting, which was dedicated to physics.</p>
       </div>
       <div class="links">
+        <a class="btn primary" href="https://www.linkedin.com/in/junaidsaifkhan">Get in touch on LinkedIn</a>
         <a class="btn" href="https://github.com/junaidsaifkhan">GitHub</a>
         <a class="btn" href="https://orcid.org/0000-0002-3480-9823">ORCID</a>
         <a class="btn" href="https://inspirehep.net/authors/3199800">INSPIRE-HEP</a>
-        <a class="btn" href="https://www.linkedin.com/in/junaidsaifkhan">LinkedIn</a>
       </div>
     </div>
 
@@ -334,6 +345,18 @@ mjx-container[display="true"] { overflow-x: auto; overflow-y: hidden; max-width:
         <div><strong>Home institution</strong>Department of Physics, Southern Methodist University<br>Dallas, TX 75275</div>
       </div>
     </aside>
+  </section>
+
+  <!-- Currently -->
+  <section id="currently" class="section" aria-labelledby="now-h">
+    <h2 id="now-h">Currently</h2>
+    <ul class="now">
+      <li><span class="now-tag">Residency</span><span>NSF MCgen Fellow in residence at the University of Cincinnati, through April 2027.</span></li>
+      <li><span class="now-tag">Paper</span><span>Finishing a paper with Fredrick Olness on MLP and DeepONet surrogates for Balitsky-Kovchegov evolution.</span></li>
+      <li><span class="now-tag">Code</span><span>Building Shomer, machine-learning flavor reweighting for string hadronization in PYTHIA 8.</span></li>
+      <li><span class="now-tag">Writing</span><span>A short piece on the VISTAS tutorial for the <i>American Journal of Physics</i>, with Philip Ilten and Jure Zupan.</span></li>
+      <li><span class="now-tag seeking-tag">Seeking</span><span>A summer 2027 internship in machine learning or quantitative research.</span></li>
+    </ul>
   </section>
 
   <!-- News -->
